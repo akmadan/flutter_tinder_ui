@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tinder/functions/actions.dart';
+import 'package:flutter_tinder/functions/alertFunction.dart';
 import 'package:flutter_tinder/utils/constants.dart';
 import 'package:flutter_tinder/widgets/appBar.dart';
-import 'package:flutter_tinder/widgets/bottomButtons.dart';
+import 'package:flutter_tinder/widgets/bottomBar.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 
 void main() {
@@ -32,15 +32,19 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<SwipeItem> _swipeItems = <SwipeItem>[];
   MatchEngine? _matchEngine;
-  List names = ["Andrews", "Master G", "Cristine", "Grammys", "Alex GH"];
+  List<String> names = [
+    'Andrews',
+    'Master G',
+    'Cristine',
+    'Grammys',
+    'Alex GH'
+  ];
 
   @override
   void initState() {
     for (int i = 0; i < names.length; i++) {
       _swipeItems.add(SwipeItem(
-          content: Content(
-            text: names[i],
-          ),
+          content: Content(text: names[i]),
           likeAction: () {
             actions(context, names[i], 'Liked');
           },
@@ -48,10 +52,9 @@ class _HomeState extends State<Home> {
             actions(context, names[i], 'Rejected');
           },
           superlikeAction: () {
-            actions(context, names[i], 'Super Liked');
+            actions(context, names[i], 'SuperLiked');
           }));
     }
-
     _matchEngine = MatchEngine(swipeItems: _swipeItems);
     super.initState();
   }
@@ -60,50 +63,45 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.grey.shade100,
         child: Column(
           children: [
-            SizedBox(
-              height: 70,
-            ),
+            SizedBox(height: 70),
             TopBar(),
             Expanded(
-              child: Container(
-                child: SwipeCards(
-                  matchEngine: _matchEngine!,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(images[index]),
-                              fit: BoxFit.cover),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        padding: EdgeInsets.all(20),
-                        alignment: Alignment.bottomLeft,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              names[index],
-                              style: TextStyle(
-                                  fontSize: 32,
-                                  color: Colors.white,
-                                  shadows: [
-                                    Shadow(color: Colors.black, blurRadius: 2)
-                                  ],
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ));
-                  },
-                  onStackFinished: () {
-                    return Text("No more People in Your Area");
-                  },
-                ),
+                child: Container(
+              child: SwipeCards(
+                matchEngine: _matchEngine!,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    alignment: Alignment.bottomLeft,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(images[index]),
+                            fit: BoxFit.cover),
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(10)),
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          names[index],
+                          style: TextStyle(
+                              fontSize: 32,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  );
+                },
+                onStackFinished: () {
+                  return ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('The List is over')));
+                },
               ),
-            ),
-            BottomButtons()
+            )),
+            BottomBar()
           ],
         ),
       ),
@@ -113,6 +111,5 @@ class _HomeState extends State<Home> {
 
 class Content {
   final String? text;
-
   Content({this.text});
 }

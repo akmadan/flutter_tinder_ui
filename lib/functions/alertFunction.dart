@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tinder/widgets/bottomButtons.dart';
+import 'package:flutter_tinder/widgets/bottomBar.dart';
 
 actions(BuildContext context, String name, type) {
   showDialog(
@@ -8,6 +8,7 @@ actions(BuildContext context, String name, type) {
         Future.delayed(Duration(seconds: 1), () {
           Navigator.of(context).pop(true);
         });
+
         return AlertDialog(
           content: buttonWidget(
               type == 'Liked'
@@ -21,7 +22,7 @@ actions(BuildContext context, String name, type) {
                       ? Colors.red
                       : Colors.blue),
           title: Text(
-            'You $type $name',
+            'You ${type} ${name}',
             style: TextStyle(
                 color: type == 'Liked'
                     ? Colors.pink
