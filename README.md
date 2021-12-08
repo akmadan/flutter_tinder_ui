@@ -1,16 +1,9 @@
 # flutter_tinder
 
-A new Flutter project.
+The complete Tutorial of this UI is available on my YouTube Channel - [Go to Link](https://www.youtube.com/channel/UCBlphb6_k7X1P28OCYXMsWg)
 
-## Getting Started
+## Final Output
+<img src="https://github.com/akmadan/flutter_tinder_ui/blob/master/assets/ss.png" width="400" height="790">
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
